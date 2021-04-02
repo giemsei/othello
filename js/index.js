@@ -8,6 +8,13 @@ var o = {
 function init(){
     o.CW = windowWidth;
     o.CH = windowHeight;
+
+    o.size = o.CW/10;
+    if (o.CH/9<o.size){
+        o.size=o.CH/9
+    }
+    o.ox = (o.CW - o.size * 9) / 2
+    o.oy = (o.CH - o.size * 8) / 2
 }
 function windowResized() {
     init();
@@ -20,13 +27,7 @@ function setup(){
 }
 function draw(){
     background("whitesmoke");
-    //gioco.draw()
-    var p= new Pezzo(0)
-    var p1= new Pezzo(1)
-    var p2= new Pezzo(-1)
-    p.draw(0,0,50)
-    p1.draw(100,0,50)
-    p2.draw(100,50,50)
+    gioco.draw()
 }
 function preload(){
     o.sprite = loadImage("./img/pedine.png", (img) => {
