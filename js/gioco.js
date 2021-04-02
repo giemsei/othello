@@ -33,13 +33,10 @@ class Gioco {
         return { x, y }
     }
     draw() {
-        var offset = o.size * 0.1
+        var offset = o.size * 0.10
         noStroke();
         fill("black");
         rect(o.ox - offset, o.oy - offset, o.size * 8 + offset * 2, o.size * 8 + offset * 2);
-
-        fill("grey");
-        rect(o.ox, o.oy, o.size * 8, o.size * 8);
 
         for (var i = 0; i < 64; i++) {
 
@@ -58,19 +55,29 @@ class Gioco {
             }
         }
 
-        noStroke()
+        stroke(0)
         if (this.nero) {
             fill(0);
         } else {
             fill(255);
         }
-        rect(o.ox + o.size * 8.2, o.oy + o.size * 3.8, o.size * 0.8, o.size * 0.4) 
+        rect(o.ox + o.size * 8.2, o.oy + o.size * 3.8, o.size * 0.8, o.size * 0.4, o.size*0.2) 
 
     }
     getcella(x, y) {
         var c = Math.floor((x - o.ox) / o.size)
         var r = Math.floor((y - o.oy) / o.size)
         return fromRC(r, c)
+    }
+    undo(){
+        var p=this.u.pop()
+        if (p){
+            this.nero=p.nero
+            this.celle=p.celle
+        }
+    }
+    saveUndo(){
+        this.u.push(this)//la classe vista dall'interno si chiama this
     }
     reset() {
         this.nero = true;
