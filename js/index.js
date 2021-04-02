@@ -35,9 +35,18 @@ function preload(){
         o.spritey = img.height / 4;
     })
 }
-function mousePressed(){}
+function mousePressed(){
+    var i= gioco.getcella(mouseX,mouseY);
+    if (i>=0) gioco.candidata[i]= !gioco.candidata[i]
+}
 function mouseReleased(){}
-function keyPressed(){}
+function keyPressed(){
+    switch(key){
+        case "r":
+            gioco.reset();
+            break;
+    }
+}
 
 
 
