@@ -20,7 +20,13 @@ function setup(){
 }
 function draw(){
     background("whitesmoke");
-    gioco.draw()
+    //gioco.draw()
+    var p= new Pezzo(0)
+    var p1= new Pezzo(1)
+    var p2= new Pezzo(-1)
+    p.draw(0,0,50)
+    p1.draw(100,0,50)
+    p2.draw(100,50,50)
 }
 function preload(){
     o.sprite = loadImage("./img/pedine.png", (img) => {
