@@ -82,133 +82,59 @@ class Gioco {
     mangia(i) {
         var nero = this.nero ? -1 : 1
         var { r, c } = toRC(i)
+        var self=this;
         //spostamento diagonale 2 e 4 quadrante
-        for (var r0 = r - 1, c0 = c - 1, trova = []; r0 >= 0 && c0 >= 0; r0--, c0--) {
+        
+        function mangia0(r0,c0,trova) {
             var i0 = fromRC(r0, c0)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
+            var t = self.celle[i0]
+            if (t) {
+                if (t == -nero) {
+                    trova.push(i0)
+                    return false;
+                } else {
+                    if (trova) {
+                        for (var j of trova) {
+                            self.celle[j] = nero
+                        }
                     }
                 }
             }
+            return true;
+        }
+        
+        for (var r0 = r - 1, c0 = c - 1, trova = []; r0 >= 0 && c0 >= 0; r0--, c0--) {
+           if (mangia0(r0,c0,trova)) break;
         }
 
         for (var r0 = r + 1, c0 = c + 1, trova = []; r0 < 8 && c0 < 8; r0++, c0++) {
-            var i0 = fromRC(r0, c0)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
-                    }
-                }
-            }
+            if (mangia0(r0,c0,trova)) break;
         }
         //spostamento diagonale 1 e 3 quadrante
         for (var r0 = r - 1, c0 = c + 1, trova = []; r0 >= 0 && c0 < 8; r0--, c0++) {
-            var i0 = fromRC(r0, c0)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
-                    }
-                }
-            }
+            if (mangia0(r0,c0,trova)) break;
         }
         for (var r0 = r + 1, c0 = c - 1, trova = []; r0 < 8 && c0 >= 0; r0++, c0--) {
-            var i0 = fromRC(r0, c0)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
-                    }
-                }
-            }
+            if (mangia0(r0,c0,trova)) break;
         }
         //spostamento della torre verso sopra
         for (var r0 = r - 1, trova = []; r0 >= 0; r0--) {
-            var i0 = fromRC(r0, c)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
-                    }
-                }
-            }
+            if (mangia0(r0,c,trova)) break;
         }
         trova = false;
         //spostamento torre verso sotto
         for (var r0 = r + 1, trova = []; r0 < 8; r0++) {
-            var i0 = fromRC(r0, c)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
-                    }
-                }
-            }
+            if (mangia0(r0,c,trova)) break;
+    
         }
         //spostamento torre verso destra
         for (var c0 = c + 1, trova = []; c0 < 8; c0++) {
-            var i0 = fromRC(r, c0)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
-                    }
-                }
-            }
+            if (mangia0(r,c0,trova)) break;
+    
         }
         //spostamento torre verso sinistra
         for (var c0 = c - 1, trova = []; c0 >= 0; c0--) {
-            var i0 = fromRC(r, c0)
-            var t = this.celle[i0]
-            if (t == 0) break;
-            if (t == -nero) {
-                trova.push(i0)
-            };
-            if (t == nero) {
-                if (trova) {
-                    for (var j of trova) {
-                        this.celle[j] = nero
-                    }
-                }
-            }
+            if (mangia0(r,c0,trova)) break;
         }
     }
 
