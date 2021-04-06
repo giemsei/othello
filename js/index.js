@@ -22,7 +22,7 @@ function windowResized() {
 }
 function setup(){
     init();
-    createCanvas(o.CW, o.CH);
+    createCanvas(o.CW, o.CH).parent("canvas");
     gioco = new Gioco();
 }
 function draw(){

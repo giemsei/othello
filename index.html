@@ -11,10 +11,21 @@
     <script src="./js/pezzo.js"> </script>
     <script src="./js/undo.js"> </script>
     <script src="./js/ai.js"> </script>
+    <script src="./js/dom.js"> </script>
 
     <link rel="stylesheet" href="./css/style.css">
     <title>Othello</title>
 </head>
 <body>
+    <div id="canvas">
+    </div>
+    <div id="menu">
+        <button class="btn" id="btn0" onclick="btnReset()">reset</button>
+        <button class="btn" id="btn1" onclick="btnUndo()">undo</button>
+        <button class="btn" id="btn2" onclick="btn2player()">N. Giocatori</button>
+        <div id="giocatori"></div>
+    </div>
+
+
 </body>
 </html>

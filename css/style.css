@@ -3,4 +3,27 @@ body{
     margin: 0;
     background-color: red; /*se si sbaglia fa vedere l'errore*/
     overflow: hidden; /*programma a pagina intera*/
+    position: relative;
+    font-size: 12px;
+}
+#menu{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    margin-top: 20vh;
+    margin-right: 1vw;
+}
+.btn{
+    display: block;
+    margin-bottom: 1em ;
+    font-size: 2rem;
+    padding: 0px 1rem;
+    text-transform: uppercase;
+    width: 100%;
+}
+#giocatori{
+    font-size: 3em;
+    text-align: center;
+    display: block;
 }
