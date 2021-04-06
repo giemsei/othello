@@ -1,4 +1,5 @@
 //punto di partenza dell'applicativo p5.js
+var gioco; var ui
 
 var o = {
     CW:0,
@@ -24,10 +25,18 @@ function setup(){
     init();
     createCanvas(o.CW, o.CH).parent("canvas");
     gioco = new Gioco();
+    var px=o.ox +o.size*8.3
+    ui= new Ui();
+    ui.push(new Button(px,o.oy ,o.size,20,"bottone",
+        function(){
+            alert("premuto il bottone")
+        } 
+    ))
 }
 function draw(){
     background("whitesmoke");
     gioco.draw()
+    ui.draw()
 }
 function preload(){
     o.sprite = loadImage("./img/pedine.png", (img) => {
@@ -36,6 +45,7 @@ function preload(){
     })
 }
 function mousePressed(){
+    ui.mousePressed(mouseX,mouseY)
     var i= gioco.getcella(mouseX,mouseY);
     if (i>=0 && gioco.candidata[i] ){
         gioco.saveUndo()
@@ -59,6 +69,9 @@ function keyPressed(){
             gioco.undo();
             break;
     }
+}
+function mouseMoved(){
+    ui.mouseMoved(mouseX,mouseY)
 }
 
 

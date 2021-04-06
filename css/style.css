@@ -1,12 +1,15 @@
-body{
+*{
     padding: 0;
     margin: 0;
+}
+body{
     background-color: red; /*se si sbaglia fa vedere l'errore*/
     overflow: hidden; /*programma a pagina intera*/
     position: relative;
     font-size: 12px;
 }
 #menu{
+    /*display: none;*/
     position: absolute;
     top: 0;
     right: 0;
