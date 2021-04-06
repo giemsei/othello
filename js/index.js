@@ -37,14 +37,16 @@ function preload(){
 }
 function mousePressed(){
     var i= gioco.getcella(mouseX,mouseY);
-    if (i>=0 && !gioco.celle[i]){
+    if (i>=0 && gioco.candidata[i] ){
         gioco.saveUndo()
+        gioco.mangia(i)
         if (gioco.nero){
             gioco.celle[i]=-1
         }else{
             gioco.celle[i]=1
         }
         gioco.nero=!gioco.nero
+        gioco.setCandidati();
     }
 }
 function mouseReleased(){}
