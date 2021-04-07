@@ -25,3 +25,20 @@ function htmlSetPeso(peso){
         el.style.backgroundColor="green"
     }
 }
+
+//lato Client direttamente nell'archivio locale del browser 
+function setStorage(key,o){
+    //key=nome dell'oggetto
+    //o= oggetto
+    localStorage.setItem(key,JSON.stringify(o))
+    console.log("storage",o)
+}
+function getStorage(key,def){
+    //def=default è il valore di default comodo nei casi in cui un oggetto non venga trovato, per evitare profondi bug 
+    var tm = localStorage.getItem(key)
+    if (tm) {
+        return JSON.parse(tm)
+    }else{
+        return def
+    }
+}

@@ -28,6 +28,10 @@ function setup() {
     init();
     createCanvas(o.CW, o.CH).parent("canvas");
     gioco = new Gioco();
+    var tm =getStorage("partita");
+    if (tm) {
+        gioco.u.setSchema(gioco,tm)
+    }
     var px = o.ox + o.size * 8.3
     ui = new Ui();
     ui.push(new Button(px, o.oy, o.size, 20, "bottone",
@@ -36,6 +40,7 @@ function setup() {
         }
     ))
     htmlSetGiocatori();
+    frameRate(10)//per limitare p5.js nell'utilizzo massimo della cpu
 }
 function draw() {
     background("whitesmoke");

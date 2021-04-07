@@ -70,7 +70,9 @@ class Gioco {
         this.u.pop(this);
     }
     saveUndo() {
-        this.u.push(this)//la classe vista dall'interno si chiama this
+        var tm =this.u.getSchema(this)//la classe vista dall'interno si chiama this
+        this.u.push(this)
+        setStorage("partita",tm)
     }
     nextMove(){
         return this.ai.nextMove();

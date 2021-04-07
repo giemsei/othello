@@ -6,24 +6,31 @@ class Undo{
     constructor(){
         this.v=[];
     }
-    push(gioco){
+    getSchema(gioco){
         var tm=[];
         for (var i of gioco.celle){
             tm.push(i.n);
         }
-        this.v.push({
+        return {
             celle: tm,
             nero: gioco.nero
-        });
+        }
+    }
+    setSchema(gioco,p) {
+        gioco.nero = p.nero
+        for (var i=0;i<64;i++) {
+            gioco.celle[i].n=p.celle[i]
+        }
+        gioco.setCandidati()
+
+    }
+    push(gioco){
+        this.v.push(this.getSchema(gioco))
     }
     pop(gioco){
         var p = this.v.pop()
         if (p) {
-            gioco.nero = p.nero
-            for (var i=0;i<64;i++) {
-                gioco.celle[i].n=p.celle[i]
-            }
-            gioco.setCandidati()
+            this.setSchema(gioco,p)
         }
     }
     reset(){
