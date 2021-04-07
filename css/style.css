@@ -30,3 +30,9 @@ body{
     text-align: center;
     display: block;
 }
+#pesi{
+    padding: 1rem;
+    line-height: 1.2rem;
+    color:aliceblue;
+    text-align: center;
+}

@@ -67,14 +67,7 @@ class Gioco {
         return fromRC(r, c)
     }
     undo() {
-        var p = this.u.pop()
-        if (p) {
-            this.nero = p.nero
-            for (var i=0;i<64;i++) {
-                this.celle[i].n=p.celle[i]
-            }
-            this.setCandidati()
-        }
+        this.u.pop(this);
     }
     saveUndo() {
         this.u.push(this)//la classe vista dall'interno si chiama this
@@ -87,7 +80,11 @@ class Gioco {
         var { r, c } = toRC(i)
         var self=this;
         //spostamento diagonale 2 e 4 quadrante
-        
+        if (this.nero) {
+            this.celle[i].n = -1
+        } else {
+            this.celle[i].n = 1
+        }
         function move0(r0,c0,trova) {
             var i0 = fromRC(r0, c0)
             var t = self.celle[i0].n
@@ -139,6 +136,7 @@ class Gioco {
         for (var c0 = c - 1, trova = []; c0 >= 0; c0--) {
             if (move0(r,c0,trova)) break;
         }
+
     }
     setCandidati() {
         var nero = this.nero ? -1 : 1
@@ -278,6 +276,7 @@ class Gioco {
         this.celle[fromRC(4, 3)].n = -1;
 
         this.setCandidati();
+        htmlSetPeso(0);
     }
 }
 

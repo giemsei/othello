@@ -1,5 +1,8 @@
 //punto di partenza dell'applicativo p5.js
-var gioco; var ui
+var gioco; 
+var ui; 
+var isComputer=false;
+
 
 var o = {
     CW: 0,
@@ -32,6 +35,7 @@ function setup() {
             alert("premuto il bottone")
         }
     ))
+    htmlSetGiocatori();
 }
 function draw() {
     background("whitesmoke");
@@ -45,17 +49,12 @@ function preload() {
     })
 }
 function mousePressed() {
+    if (isComputer) return;//per evitare di disturbare il computer quando sta lavorando
     ui.mousePressed(mouseX, mouseY)
     var i = gioco.getcella(mouseX, mouseY);
     if (i >= 0 && gioco.celle[i].candidata) {
         gioco.saveUndo()
         gioco.move(i)
-        if (gioco.nero) {
-            gioco.celle[i].n = -1
-        } else {
-            gioco.celle[i].n = 1
-        }
-
         gioco.nero = !gioco.nero
         var candidati = gioco.setCandidati();
         if (!candidati) {
@@ -64,32 +63,33 @@ function mousePressed() {
         }
 
         if (!gioco.is2Player && !gioco.nero && candidati>=0) {
-            for (; ;) {
-                var i = gioco.nextMove();
-                console.log("nextMove",toRC(i));
-                gioco.move(i)
-                if (gioco.nero) {
-                    gioco.celle[i].n = -1
-                } else {
-                    gioco.celle[i].n = 1
-                }
-                gioco.nero = !gioco.nero
-                var candidati = gioco.setCandidati();
-                if (!candidati) {
-                    gioco.nero = !gioco.nero;
-                    if (!gioco.setCandidati()) {
+            isComputer=true;
+            setTimeout(()=>{
+                for (; ;) {
+                    var i = gioco.nextMove();
+                    console.log("nextMove",toRC(i));
+                    gioco.move(i)
+                    gioco.nero = !gioco.nero
+                    var candidati = gioco.setCandidati();
+                    if (!candidati) {
+                        gioco.nero = !gioco.nero;
+                        if (!gioco.setCandidati()) {
+                            break
+                        }
+                    } else {
                         break
                     }
-                } else {
-                    break
                 }
-            }
+                isComputer=false
+            },2000)
+            
         }
-        document.getElementById("pesi").innerText = `peso: ${gioco.peso}`
+        htmlSetPeso(gioco.peso);
     }
 }
 function mouseReleased() { }
 function keyPressed() {
+    if (isComputer) return;//per evitare di disturbare il computer quando sta lavorando
     switch (key) {
         case "r":
             gioco.reset();

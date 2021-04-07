@@ -16,8 +16,15 @@ class Undo{
             nero: gioco.nero
         });
     }
-    pop(){
-        return this.v.pop()
+    pop(gioco){
+        var p = this.v.pop()
+        if (p) {
+            gioco.nero = p.nero
+            for (var i=0;i<64;i++) {
+                gioco.celle[i].n=p.celle[i]
+            }
+            gioco.setCandidati()
+        }
     }
     reset(){
         this.v.length = 0;
