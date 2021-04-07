@@ -49,7 +49,7 @@ function mousePressed(){
     var i= gioco.getcella(mouseX,mouseY);
     if (i>=0 && gioco.celle[i].candidata ){
         gioco.saveUndo()
-        gioco.mangia(i)
+        gioco.move(i)
         if (gioco.nero){
             gioco.celle[i].n=-1
         }else{

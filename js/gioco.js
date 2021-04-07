@@ -79,13 +79,13 @@ class Gioco {
     
         this.u.push(this)//la classe vista dall'interno si chiama this
     }
-    mangia(i) {
+    move(i) {
         var nero = this.nero ? -1 : 1
         var { r, c } = toRC(i)
         var self=this;
         //spostamento diagonale 2 e 4 quadrante
         
-        function mangia0(r0,c0,trova) {
+        function move0(r0,c0,trova) {
             var i0 = fromRC(r0, c0)
             var t = self.celle[i0].n
             if (t) {
@@ -104,37 +104,37 @@ class Gioco {
         }
         
         for (var r0 = r - 1, c0 = c - 1, trova = []; r0 >= 0 && c0 >= 0; r0--, c0--) {
-           if (mangia0(r0,c0,trova)) break;
+           if (move0(r0,c0,trova)) break;
         }
 
         for (var r0 = r + 1, c0 = c + 1, trova = []; r0 < 8 && c0 < 8; r0++, c0++) {
-            if (mangia0(r0,c0,trova)) break;
+            if (move0(r0,c0,trova)) break;
         }
         //spostamento diagonale 1 e 3 quadrante
         for (var r0 = r - 1, c0 = c + 1, trova = []; r0 >= 0 && c0 < 8; r0--, c0++) {
-            if (mangia0(r0,c0,trova)) break;
+            if (move0(r0,c0,trova)) break;
         }
         for (var r0 = r + 1, c0 = c - 1, trova = []; r0 < 8 && c0 >= 0; r0++, c0--) {
-            if (mangia0(r0,c0,trova)) break;
+            if (move0(r0,c0,trova)) break;
         }
         //spostamento della torre verso sopra
         for (var r0 = r - 1, trova = []; r0 >= 0; r0--) {
-            if (mangia0(r0,c,trova)) break;
+            if (move0(r0,c,trova)) break;
         }
         trova = false;
         //spostamento torre verso sotto
         for (var r0 = r + 1, trova = []; r0 < 8; r0++) {
-            if (mangia0(r0,c,trova)) break;
+            if (move0(r0,c,trova)) break;
     
         }
         //spostamento torre verso destra
         for (var c0 = c + 1, trova = []; c0 < 8; c0++) {
-            if (mangia0(r,c0,trova)) break;
+            if (move0(r,c0,trova)) break;
     
         }
         //spostamento torre verso sinistra
         for (var c0 = c - 1, trova = []; c0 >= 0; c0--) {
-            if (mangia0(r,c0,trova)) break;
+            if (move0(r,c0,trova)) break;
         }
     }
     setCandidati() {

@@ -6,4 +6,7 @@ class AI{
     constructor(gioco){
         this.gioco=gioco
     }
+    nextMove(){
+        
+    }
 }
