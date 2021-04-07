@@ -9,7 +9,7 @@ class Undo{
     push(gioco){
         var tm=[];
         for (var i of gioco.celle){
-            tm.push(i);
+            tm.push(i.n);
         }
         this.v.push({
             celle: tm,

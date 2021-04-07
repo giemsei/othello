@@ -8,11 +8,18 @@ nostri pezzi
 class Pezzo {
     constructor(n) {
         this.n = n
+        this.candidata=false;
     }
     draw(x, y, s = 0) {
         if (!s) {
             s = o.size
         }
+        rect(x, y, o.size, o.size)
+        if (this.candidata) {
+            fill(0, 255, 255, 30)
+            rect(x, y, o.size, o.size)
+        }
+ 
         if (this.n == 1) {
             //disegna pedina bianca
             image(o.sprite, x, y, s, s,

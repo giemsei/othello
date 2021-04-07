@@ -2,6 +2,16 @@
 Questa classe si occupa di:
 - 
 */
+const PESI = [ 
+    100, -10, 10, 6, 6, 10, -10, 100, // quanto pesa ogni singola cella
+    -10, -20, 1, 2, 2,   1, -20, -10,
+    10,    1, 5, 4, 4,   5,   1,  10,
+    6,     2, 4, 2, 2,   4,   2,   6,
+    6,     2, 4, 2, 2,   4,   2,   6,
+    10,    1, 5, 4, 4,   5,   1,  10,
+    -10, -20, 1, 2, 2,   1, -20, -10,
+    100, -10, 11, 6, 6, 11, -10, 100
+];
 
 function toRC(i) {
     r = Math.floor(i / 8);
@@ -18,13 +28,11 @@ function fromRC(r, c) {
 class Gioco {
     constructor() {
         this.celle = [];
-        this.candidata = [];
         this.u = new Undo();
+        this.ai= new AI(this);
         for (var i = 0; i < 64; i++) {
-            this.celle.push(0); //abbiamo creato un vettore riga fatto di vettori colonna, una sorta di matrice
-            this.candidata.push(false);
+            this.celle.push(new Pezzo)
         }
-
         this.reset()//SEMPRE COME ULTIMA ISTRUZIONE 
     }
     pos(r, c) {
@@ -37,24 +45,12 @@ class Gioco {
         noStroke();
         fill("black");
         rect(o.ox - offset, o.oy - offset, o.size * 8 + offset * 2, o.size * 8 + offset * 2);
-
         for (var i = 0; i < 64; i++) {
-
             var { r, c } = toRC(i) //toRC non serve la parola chiave this, perchè definita globalmente
             var { x, y } = this.pos(r, c) //pos necessita this perchè è una funzione definita all'interno della classe
-
             if ((r + c) % 2 == 0) fill(225); else fill(240)
-            rect(x, y, o.size, o.size)
-            if (this.candidata[i]) {
-                fill(0, 255, 255, 30)
-                rect(x, y, o.size, o.size)
-            }
-            if (this.celle[i] != 0) {
-                var p = new Pezzo(this.celle[i])
-                p.draw(x, y)
-            }
+            this.celle[i].draw(x, y)
         }
-
         stroke(0)
         if (this.nero) {
             fill(0);
@@ -72,11 +68,15 @@ class Gioco {
     undo() {
         var p = this.u.pop()
         if (p) {
+
             this.nero = p.nero
-            this.celle = p.celle
+            for (var x of this.celle) {
+                x.n=p.celle[i]
+            }
         }
     }
     saveUndo() {
+    
         this.u.push(this)//la classe vista dall'interno si chiama this
     }
     mangia(i) {
@@ -87,7 +87,7 @@ class Gioco {
         
         function mangia0(r0,c0,trova) {
             var i0 = fromRC(r0, c0)
-            var t = self.celle[i0]
+            var t = self.celle[i0].n
             if (t) {
                 if (t == -nero) {
                     trova.push(i0)
@@ -95,7 +95,7 @@ class Gioco {
                 } else {
                     if (trova) {
                         for (var j of trova) {
-                            self.celle[j] = nero
+                            self.celle[j].n = nero
                         }
                     }
                 }
@@ -137,14 +137,13 @@ class Gioco {
             if (mangia0(r,c0,trova)) break;
         }
     }
-
     setCandidati() {
         var nero = this.nero ? -1 : 1
 
         var self = this
         function candidata0(r0, c0) {
             var i0 = fromRC(r0, c0)
-            return self.celle[i0]
+            return self.celle[i0].n
         }
         function checkCandidata(r, c) {
             var trova = false;
@@ -238,28 +237,42 @@ class Gioco {
             return false;
         }
 
+        var count=0;
+
         for (var i = 0; i < 64; i++) {
-            if (this.celle[i] == 0) {
+            if (this.celle[i].n == 0) {
                 var { r, c } = toRC(i);
-                this.candidata[i] = checkCandidata(r, c)
+                var tm = checkCandidata(r,c)
+                this.celle[i].candidata = tm
+                if (tm) count++
             } else {
-                this.candidata[i] = false;
+                this.celle[i].candidata = false;
             }
         }
+        return count //se non ho nessun posto in cui muovere automaticamente tocca all'avversario altrimenti si bloccherebbe il gioco
+
+    }
+    get peso(){
+        var tm=0;
+        for(var i=0;i<64;i++){
+            tm += this.celle[i].n*PESI[i]//valore maggiore di zero in vantaggio i bianchi altrimenti in neri 
+        }
+        return tm
+
     }
 
     reset() {
         this.nero = true;
         for (var i = 0; i < 64; i++) {
-            this.celle[i] = 0;
-            this.candidata[i] = false;
+            this.celle[i].n = 0;
+            this.celle[i].candidata = false;
         }
         this.u.reset();
         //inizializziamo
-        this.celle[fromRC(3, 3)] = 1;
-        this.celle[fromRC(4, 4)] = 1;
-        this.celle[fromRC(3, 4)] = -1;
-        this.celle[fromRC(4, 3)] = -1;
+        this.celle[fromRC(3, 3)].n = 1;
+        this.celle[fromRC(4, 4)].n = 1;
+        this.celle[fromRC(3, 4)].n = -1;
+        this.celle[fromRC(4, 3)].n = -1;
 
         this.setCandidati();
     }

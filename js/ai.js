@@ -3,5 +3,7 @@ Questa classe si occupa di:
 - 
 */
 class AI{
-    constructor(){}
+    constructor(gioco){
+        this.gioco=gioco
+    }
 }

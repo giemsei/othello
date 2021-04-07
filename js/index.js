@@ -47,16 +47,22 @@ function preload(){
 function mousePressed(){
     ui.mousePressed(mouseX,mouseY)
     var i= gioco.getcella(mouseX,mouseY);
-    if (i>=0 && gioco.candidata[i] ){
+    if (i>=0 && gioco.celle[i].candidata ){
         gioco.saveUndo()
         gioco.mangia(i)
         if (gioco.nero){
-            gioco.celle[i]=-1
+            gioco.celle[i].n=-1
         }else{
-            gioco.celle[i]=1
+            gioco.celle[i].n=1
         }
         gioco.nero=!gioco.nero
-        gioco.setCandidati();
+        var candidati= gioco.setCandidati();
+
+        if (!candidati) {
+            gioco.nero=!gioco.nero;
+            gioco.setCandidati();
+        }
+       document.getElementById("pesi").innerText=`peso: ${gioco.peso}` 
     }
 }
 function mouseReleased(){}
