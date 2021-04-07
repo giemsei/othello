@@ -30,6 +30,7 @@ class Gioco {
         this.celle = [];
         this.u = new Undo();
         this.ai= new AI(this);
+        this.is2Player = false;
         for (var i = 0; i < 64; i++) {
             this.celle.push(new Pezzo)
         }
@@ -68,16 +69,18 @@ class Gioco {
     undo() {
         var p = this.u.pop()
         if (p) {
-
             this.nero = p.nero
-            for (var x of this.celle) {
-                x.n=p.celle[i]
+            for (var i=0;i<64;i++) {
+                this.celle[i].n=p.celle[i]
             }
+            this.setCandidati()
         }
     }
     saveUndo() {
-    
         this.u.push(this)//la classe vista dall'interno si chiama this
+    }
+    nextMove(){
+        return this.ai.nextMove();
     }
     move(i) {
         var nero = this.nero ? -1 : 1
