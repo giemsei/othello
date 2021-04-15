@@ -1,0 +1,23 @@
+{
+  "name": "othello",
+  "version": "1.0.0",
+  "description": "Gioco di logica di nome Othello iniziato il 2 Aprile",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/giemsei/othello.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giemsei/othello/issues"
+  },
+  "homepage": "https://github.com/giemsei/othello#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
