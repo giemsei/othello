@@ -5,8 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="js/main.js"></script>
 </head>
+<script></script>
 <body>
-    <h1>Ciao, sono altro....!</h1>
+    <h1>Inserisci Nome e Cognome</h1>
+    <div>
+        <label>Nome</label>
+        <input type="text" id="nome" value="" placeholder="metti qui il nome"/>
+        <label>Cognome</label>
+        <input type="text" id="cognome" value="" />
+        <button onclick="aggiungi()">Invia</button>
+        <button onclick="cancella()">Cancella Tutto</button>
+
+    </div>
+    <h4>Elenco Valori inseriti:</h4>
+    <ul id="lista">
+        <li>Nome,Cognome</li>
+
+    </ul>
+    <h4>Variabile JSON</h4>
+<pre id="codice"></pre>
+
 </body>
 </html>

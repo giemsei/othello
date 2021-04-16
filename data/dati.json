@@ -1,0 +1,21 @@
+[
+  {
+    "nome": "test fdfdxxxx",
+    "cognome": "altro",
+    "eta": 44,
+    "localita": "roma"
+  },
+  {
+    "nome": "prova",
+    "cognome": "altro nome",
+    "eta": 33,
+    "localita": "roma"
+  },
+  {
+    "nome": "prova",
+    "cognome": "altro nome",
+    "eta": 23.099999999999998,
+    "localita": "roma",
+    "indirizzo": "via garibaldi"
+  }
+]
