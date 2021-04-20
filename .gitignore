@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+#file testo dai serviizi di ciao per esempio
+*.txt

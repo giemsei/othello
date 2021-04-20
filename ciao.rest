@@ -1,0 +1,10 @@
+
+###
+POST http://localhost:3001/ciao/salva
+content-type: application/json
+
+{
+    "dati":"prova 2 "
+}
+
+
