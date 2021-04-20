@@ -1,3 +1,5 @@
+//server ciao.js
+
 const fs = require("fs")
 const path = require("path");
 const { allowedNodeEnvironmentFlags } = require("process");
@@ -19,6 +21,7 @@ function getHTML(dati) {
             <body>
             <pre id="dati" contentEditable="true">${dati}</pre> 
             <button onclick="bottone()">salva</button> 
+            <button onclick="bottoneGET()">salvo IN GET</button> 
             </body>
             </html>
             `
@@ -88,11 +91,41 @@ router
     })
     //sovrascrive il salvataggio su out.txt
     .post("/salva",(req,res)=>{
-        var dati = req.body.dati //var {dati} = req.body //in caso dopo volessimo inserire altri parametri 
+        console.log("req",req.body)//formato javascript del body
+        console.log("req_json",JSON.stringify(req.body))//formato json del body
+
+        /*
+        il body è nel caso analizzato qua in javascript e':
+        {
+            dati: 'ciao\n',
+            nome: 'giammi',
+            eta: '24',
+            abitazione: 'Trst',
+            numeri: [ 1, 2, 3, 4 ]
+        } 
+        
+        */
+     var dati = req.body.dati //var {dati} = req.body //in caso dopo volessimo inserire altri parametri 
         var file=path.join(__dirname,"../out.txt") //se non esiste il file me lo crea sempre
         if (dati){
             fs.writeFileSync(file,dati)
         }
-        res.send("salvato")
+
+        res.send({
+            result: "okay" //okay se c'è response.json su post.js bisogna ritornare un output un json 
+        })
+        
+        //res.send("okay") //funziona solo se mettimo al return response.text dentro la funzione: async function postData(url = '', data = {})
+    })
+    .get("/salva",(req,res)=>{
+
+     var dati = req.query.dati //si mette il query al posto di body 
+        var file=path.join(__dirname,"../out1.txt")
+        if (dati){
+            fs.writeFileSync(file,dati)
+        }
+        res.send({
+            result: "okay"  
+        })
     })
     
