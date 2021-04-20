@@ -1,5 +1,7 @@
 //server ciao.js
 
+//RICORDATI: per verificare un servizio in lato server prima di scrivere il lato client si usa ciao.rest 
+
 const fs = require("fs")
 const path = require("path");
 const { allowedNodeEnvironmentFlags } = require("process");
@@ -11,17 +13,18 @@ function getHTML(dati) {
             <!DOCTYPE html>
             <html lang="en">
             <head>
-                <meta charset="UTF-8">
+          <meta charset="UTF-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Document</title>
 
-                <script src="../altro/js/post.js" > </script>
+                <script src="../altro/js/clientciao.js" > </script>
             </head>
             <body>
             <pre id="dati" contentEditable="true">${dati}</pre> 
             <button onclick="bottone()">salva</button> 
             <button onclick="bottoneGET()">salvo IN GET</button> 
+            <button onclick="bottoneCANCELLA()">CANCELLA</button>
             </body>
             </html>
             `
@@ -33,10 +36,7 @@ router
             primo: 333,
             altrodato: "stringa"
         }
-
-
         res.send(risposta);
-
     })
     .get("/mondo", (req, res) => {
 
@@ -126,6 +126,19 @@ router
         }
         res.send({
             result: "okay"  
+        })
+    })
+    .post("/cancella",(req,res)=>{
+        var file=path.join(__dirname,"../out.txt")
+        var file1=path.join(__dirname,"../out1.txt")
+        if (fs.existsSync(file)){
+            fs.unlinkSync(file) //per cancellare il file
+        }
+        if (fs.existsSync(file1)){
+            fs.unlinkSync(file1) //per cancellare il file1
+        }
+        res.send({
+            result: "okay sauce"
         })
     })
     

@@ -1,5 +1,7 @@
+//SERVER CAPO
+
 const express = require('express') //modulo
-const serv1 =require("./src/serv1.js")
+const serv1 =require("./server/serv1.js")
 
 var fs = require("fs");
 const app = express()
@@ -15,9 +17,9 @@ app.use('/ancora', express.static("altro")); // indirizzo ancora su cartella "al
 
 //due modi per fare il require e use
 app.use("/serv1",serv1);
-app.use("/ciao",require("./src/ciao.js"));
+app.use("/ciao",require("./server/ciao.js"));
 
-app.use("/servizi",require("./src/servizi.js"));
+app.use("/servizi",require("./server/servizi.js"));
 
 
 app.listen(3001, () => {

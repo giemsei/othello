@@ -84,3 +84,15 @@ function bottoneGET(){
     })
 
 }
+
+function bottoneCANCELLA(){
+
+    postData('/ciao/cancella') 
+        .then(res => {
+            console.log(res);
+            alert("Cancello tutto sauce")
+        });
+
+}
+
+

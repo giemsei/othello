@@ -1,6 +1,6 @@
 
 ###
-POST http://localhost:3001/ciao/salva
+POST http://localhost:3001/ciao/cancella
 content-type: application/json
 
 {
